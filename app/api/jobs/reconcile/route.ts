@@ -14,8 +14,10 @@ function authorized(request: Request): boolean {
 }
 
 /**
- * Reconciliation job: polls GET /v1/calls/{call_id} for every open task. Vercel Cron hits
- * this every minute (see vercel.json). Run it manually with `npm run reconcile` when developing.
+ * Reconciliation job: polls GET /v1/calls/{call_id} for every open task. vercel.json schedules
+ * it daily because the Hobby plan rejects more frequent crons; on Pro, set it to "* * * * *".
+ * Webhooks and the incident page's own polling keep open calls current in the meantime.
+ * Run it manually with `npm run reconcile` when developing.
  */
 async function handle(request: Request) {
   if (!authorized(request)) return Response.json({ error: "Unauthorized" }, { status: 401 });

@@ -29,7 +29,9 @@ export type CalleConfig =
  */
 export function calleConfig(): CalleConfig {
   const apiKey = process.env.CALLE_API_KEY?.trim() ?? "";
-  const publicBaseUrl = (process.env.PUBLIC_BASE_URL?.trim() ?? "").replace(/\/+$/, "");
+  // On Vercel, default to the project's production domain so the first deploy needs no URL.
+  const vercelDomain = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
+  const publicBaseUrl = (process.env.PUBLIC_BASE_URL?.trim() || (vercelDomain ? `https://${vercelDomain}` : "")).replace(/\/+$/, "");
   const baseUrl = pinnedCalleOrigin(process.env.CALLE_BASE_URL);
   const missing: string[] = [];
   if (!apiKey) missing.push("CALLE_API_KEY");

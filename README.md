@@ -46,15 +46,15 @@ Open `/api/health` to see whether the CALL-E key was **accepted** (verified with
 | --- | --- | --- |
 | `DATABASE_URL` | yes | PostgreSQL connection string (Neon, Supabase, RDS, local). Server-only. |
 | `CALLE_API_KEY` | yes | CALL-E Developer API key (`iams_live_…`). Server-only, never sent to the browser. Without it calling is blocked. |
-| `PUBLIC_BASE_URL` | yes | Public HTTPS origin of this deployment. Webhook URL is `${PUBLIC_BASE_URL}/api/webhooks/calle`. |
+| `PUBLIC_BASE_URL` | yes, except on Vercel | Public HTTPS origin of this deployment. Webhook URL is `${PUBLIC_BASE_URL}/api/webhooks/calle`. On Vercel it defaults to `https://$VERCEL_PROJECT_PRODUCTION_URL`. |
 | `DATABASE_POOL_MAX` | no | Connection pool size, default 5. Set to 1 for the PGlite dev server. |
-| `CRON_SECRET` | production | Bearer secret for `/api/jobs/reconcile`. Vercel Cron sends it automatically. |
+| `CRON_SECRET` | production | Any long random string. Bearer secret for `/api/jobs/reconcile`; Vercel Cron sends it automatically. |
 | `CALLE_BASE_URL` | no | Override the API base (default `https://api.heycall-e.com`). Only an `https://*.heycall-e.com` origin is accepted; anything else blocks calling so the key can never be sent to another host. |
 | `DOCKSIGNAL_ORG_NAME` | no | Organisation the AI assistant identifies itself as calling for. |
 | `DEMO_DRIVER_PHONE`, `DEMO_DOCK_PHONE`, `DEMO_DISPATCHER_PHONE` | no | Pre-fill the intake form with numbers you own or are authorized to call, so no number is typed on camera or committed to git. |
 | `DEMO_TIMEZONE` | no | Default incident timezone (IANA), default `Asia/Singapore`. |
 
-There is no variable that enables a mock, fixture, or demo-data mode. Test fixtures live only under `tests/` and are never importable by application code.
+There is no variable that enables a mock, fixture, or demo-data mode. Test fixtures live only under `tests/` and are never importable by application code. The walkthrough video tooling in [`demo/`](demo/) simulates the CALL-E boundary from outside the app, for recording only; see [demo/README.md](demo/README.md).
 
 ## Real-call safety
 
@@ -93,7 +93,7 @@ sequenceDiagram
   CE-->>DS: 200 call_task {summary, task_completed, completion_confidence, evidence, recipients[].structured_result, attempts[].transcript_turns}
   DS->>DB: UPDATE call_tasks; REPLACE observations; INSERT audit_entries; UPDATE call_events.processed_at
   DS-->>CE: 200
-  loop every minute (Vercel Cron) and on every incident poll for stale open calls
+  loop daily (Vercel Cron, every minute on Pro) and on every incident poll for stale open calls
     DS->>CE: GET /v1/calls/call_… for open tasks
     DS->>DB: apply snapshot (never regresses a terminal task)
   end
@@ -162,13 +162,17 @@ See [TESTING.md](TESTING.md) for the manual real-call checklist, the duplicate-w
 
 ## Deployment
 
-DockSignal is a standard Next.js app with PostgreSQL. The reference target is **Vercel + Neon**, but any Node host with Postgres works.
+DockSignal is a standard Next.js app with PostgreSQL. The reference target is **Vercel + Neon**, and the Vercel Hobby plan is enough.
 
-1. Create a Postgres database (Neon: create project, copy the pooled connection string).
-2. `vercel link`, then set `DATABASE_URL`, `CALLE_API_KEY`, `PUBLIC_BASE_URL` (your `https://<project>.vercel.app`), `CRON_SECRET`, and optionally the `DEMO_*` variables in the Vercel project settings (Production).
-3. `DATABASE_URL=… npm run db:migrate` from your machine (or add it as a build step).
-4. `vercel --prod`. `vercel.json` registers the minute-by-minute reconciliation cron.
-5. Open `/api/health`; `calle.state` must be `accepted`.
+1. In Vercel, import this repository as a new project and deploy it once.
+2. In the project's **Storage** tab, create a **Neon** database and connect it to the project. This sets `DATABASE_URL`.
+3. In **Settings → Environment Variables** (Production), add `CALLE_API_KEY` and `CRON_SECRET` (any long random string). `PUBLIC_BASE_URL` is optional on Vercel; the webhook URL defaults to the production domain. Optionally add the `DEMO_*` variables.
+4. Redeploy. The `vercel-build` script applies the SQL migrations before `next build`.
+5. Open `/api/health`; `calle.state` must be `accepted` and `webhookUrl` must point at your domain.
+
+From the CLI instead: `vercel login`, `vercel link`, `vercel env add CALLE_API_KEY production`, `vercel env add CRON_SECRET production`, connect Neon in the dashboard, then `vercel --prod`.
+
+`vercel.json` schedules the reconciliation cron daily, because the Hobby plan rejects more frequent crons. Webhooks and the incident page's own polling keep open calls current; on Pro you can set the schedule to `* * * * *`.
 
 Deploying requires accounts and secrets that only the operator holds; the repository does not contain a deployed URL until you add it here: **Deployed app: _add URL_**.
 

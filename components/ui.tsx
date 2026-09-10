@@ -103,7 +103,7 @@ export function Kv({ k, v, mono }: { k: string; v: React.ReactNode; mono?: boole
   return (
     <div className="flex items-start justify-between gap-3 border-b border-line/60 py-1.5 text-xs last:border-b-0">
       <span className="text-muted">{k}</span>
-      <span className={`text-right text-white ${mono ? "mono" : ""}`}>{v}</span>
+      <span className={`min-w-0 text-right text-white ${mono ? "mono break-all" : ""}`}>{v}</span>
     </div>
   );
 }

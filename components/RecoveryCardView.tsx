@@ -108,7 +108,7 @@ export function RecoveryCardView({ view, setup, operatorName, onUpdated }: { vie
   const confidenceTone = { high: "border-ok/60 text-ok", medium: "border-warn/60 text-warn", low: "border-bad/60 text-bad", none: "border-line text-muted" }[card.confidence.label];
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[1fr_340px]">
+    <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
       <div className="space-y-4">
         <div className={`panel p-4 ${card.branch === "window_missed" || card.branch === "dock_declined" || card.branch === "eta_conflicted" ? "border-bad/50" : card.branch === "within_window" || card.branch === "exception_granted" ? "border-ok/50" : ""}`}>
           <div className="flex flex-wrap items-center justify-between gap-2">
@@ -175,7 +175,7 @@ export function RecoveryCardView({ view, setup, operatorName, onUpdated }: { vie
                 <span className="mono shrink-0 text-muted">{new Date(a.createdAt).toLocaleTimeString()}</span>
                 <span className="shrink-0 font-semibold">{a.actor}</span>
                 <span className="text-info">{a.action}</span>
-                <span className="mono truncate text-muted">{JSON.stringify(a.detailJson)}</span>
+                <span className="mono min-w-0 truncate text-muted">{JSON.stringify(a.detailJson)}</span>
               </li>
             ))}
           </ol>

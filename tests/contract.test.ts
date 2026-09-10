@@ -109,6 +109,9 @@ describe("CALL-E credential origin", () => {
       if (!config.ok) expect(config.missing.join(" ")).toMatch(/CALLE_BASE_URL/);
       process.env.CALLE_BASE_URL = "";
       expect(calleConfig()).toMatchObject({ ok: true, baseUrl: "https://api.heycall-e.com" });
+      delete process.env.PUBLIC_BASE_URL;
+      process.env.VERCEL_PROJECT_PRODUCTION_URL = "docksignal.vercel.app";
+      expect(calleConfig()).toMatchObject({ ok: true, webhookUrl: "https://docksignal.vercel.app/api/webhooks/calle" });
     } finally {
       process.env = saved;
     }
