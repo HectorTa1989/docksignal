@@ -1,13 +1,13 @@
 # Examples
 
-Phone numbers below are fictional NANP test-range numbers (`+1 500 555 01xx`). No example here comes from a real call; they illustrate the shapes the skill consumes and produces.
+Phone numbers below come from the NANP-reserved fictional range `+1 202 555 01xx`. No example here comes from a real call; they illustrate the shapes the skill consumes and produces.
 
 ## 1. Create request (driver, fact-finding)
 
 ```json
 {
   "task": "You are an AI assistant calling on behalf of Northwind Freight Operations. ...",
-  "recipients": [{ "phones": ["+15005550100"], "locale": "en-US", "region": "US" }],
+  "recipients": [{ "phones": ["+12025550100"], "locale": "en-US", "region": "US" }],
   "recipient_result_schema": { "$comment": "see result-schema.json" },
   "metadata": {
     "app": "docksignal",

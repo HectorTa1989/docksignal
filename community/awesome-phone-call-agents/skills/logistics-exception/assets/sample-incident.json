@@ -10,8 +10,8 @@
   "operator_name": "Ops desk",
   "authorization_confirmed": true,
   "contacts": [
-    { "role": "driver", "name": "Driver on SHP-88214", "phone_e164": "+15005550100", "authorization_note": "Carrier-provided driver number (fictional test range)", "include": true },
-    { "role": "receiving_dock", "name": "Receiving desk, Dock 7", "phone_e164": "+15005550101", "authorization_note": "Consignee receiving line (fictional test range)", "include": true },
-    { "role": "dispatcher", "name": "Carrier dispatch", "phone_e164": "+15005550102", "authorization_note": "Carrier dispatch desk (fictional test range)", "include": false }
+    { "role": "driver", "name": "Driver on SHP-88214", "phone_e164": "+12025550100", "authorization_note": "Carrier-provided driver number (NANP-reserved fictional range)", "include": true },
+    { "role": "receiving_dock", "name": "Receiving desk, Dock 7", "phone_e164": "+12025550101", "authorization_note": "Consignee receiving line (NANP-reserved fictional range)", "include": true },
+    { "role": "dispatcher", "name": "Carrier dispatch", "phone_e164": "+12025550102", "authorization_note": "Carrier dispatch desk (NANP-reserved fictional range)", "include": false }
   ]
 }

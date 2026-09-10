@@ -97,7 +97,7 @@ describe("CALL-E webhook receiver", () => {
   });
 
   it("marks failed calls failed and keeps every field unverified", async () => {
-    calle.snapshots.set(dockCallId, providerCall({ id: dockCallId, status: "failed", failureCode: "no_answer_like", failureMessage: "The call was not answered.", phone: "+15005550101" }));
+    calle.snapshots.set(dockCallId, providerCall({ id: dockCallId, status: "failed", failureCode: "no_answer_like", failureMessage: "The call was not answered.", phone: "+12025550101" }));
     const outcome = await processWebhook(deps(), "evt_3", event("evt_3", "call.failed", calle.snapshots.get(dockCallId)));
     expect(outcome.status).toBe(200);
     const task = (await ctx.repo.getTaskByProviderCallId(dockCallId))!;
@@ -129,7 +129,7 @@ describe("CALL-E webhook receiver", () => {
   });
 
   it("one real structured result changes the recommendation end to end and lands in the Markdown summary", async () => {
-    calle.snapshots.set(dockCallId, providerCall({ id: dockCallId, result: sampleResult({ contact_role: "receiving_dock", revised_eta: "16:00", can_accept: "conditional", current_status: "Dock open until 16:00", blocker: "No receiving after 16:00" }), phone: "+15005550101" }));
+    calle.snapshots.set(dockCallId, providerCall({ id: dockCallId, result: sampleResult({ contact_role: "receiving_dock", revised_eta: "16:00", can_accept: "conditional", current_status: "Dock open until 16:00", blocker: "No receiving after 16:00" }), phone: "+12025550101" }));
     await processWebhook(deps(), "evt_dock", event("evt_dock", "call.completed", calle.snapshots.get(dockCallId)));
     calle.snapshots.set(driverCallId, providerCall({ id: driverCallId, result: sampleResult({ revised_eta: "15:20" }) }));
     await processWebhook(deps(), "evt_drv1", event("evt_drv1", "call.completed", calle.snapshots.get(driverCallId)));
@@ -152,8 +152,8 @@ describe("CALL-E webhook receiver", () => {
     const md = renderIncidentMarkdown(view);
     expect(md).toContain("Revised ETA is after the receiving cutoff");
     expect(md).toContain(driverCallId);
-    expect(md).toContain("+15*******00");
-    expect(md).not.toContain("+15005550100");
+    expect(md).toContain("+12*******00");
+    expect(md).not.toContain("+12025550100");
   });
 });
 

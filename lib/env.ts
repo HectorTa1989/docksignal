@@ -1,5 +1,24 @@
 export const CALLE_DEFAULT_BASE_URL = "https://api.heycall-e.com";
 
+/**
+ * The bearer key may only ever be sent to CALL-E's own HTTPS origin. An override is accepted
+ * only for an https heycall-e.com host with no credentials, port, path, query, or fragment.
+ */
+export function pinnedCalleOrigin(raw: string | undefined): string | null {
+  const value = raw?.trim();
+  if (!value) return CALLE_DEFAULT_BASE_URL;
+  let url: URL;
+  try {
+    url = new URL(value);
+  } catch {
+    return null;
+  }
+  const host = url.hostname.toLowerCase();
+  const official = host === "heycall-e.com" || host.endsWith(".heycall-e.com");
+  const bare = !url.username && !url.password && !url.port && (url.pathname === "/" || url.pathname === "") && !url.search && !url.hash;
+  return url.protocol === "https:" && official && bare ? url.origin : null;
+}
+
 export type CalleConfig =
   | { ok: true; apiKey: string; baseUrl: string; webhookUrl: string; publicBaseUrl: string }
   | { ok: false; reason: string; missing: string[] };
@@ -11,12 +30,13 @@ export type CalleConfig =
 export function calleConfig(): CalleConfig {
   const apiKey = process.env.CALLE_API_KEY?.trim() ?? "";
   const publicBaseUrl = (process.env.PUBLIC_BASE_URL?.trim() ?? "").replace(/\/+$/, "");
-  const baseUrl = (process.env.CALLE_BASE_URL?.trim() || CALLE_DEFAULT_BASE_URL).replace(/\/+$/, "");
+  const baseUrl = pinnedCalleOrigin(process.env.CALLE_BASE_URL);
   const missing: string[] = [];
   if (!apiKey) missing.push("CALLE_API_KEY");
+  if (!baseUrl) missing.push("CALLE_BASE_URL (must be an https://*.heycall-e.com origin)");
   if (!publicBaseUrl) missing.push("PUBLIC_BASE_URL");
   else if (!/^https:\/\//.test(publicBaseUrl)) missing.push("PUBLIC_BASE_URL (must be https://)");
-  if (missing.length) {
+  if (missing.length || !baseUrl) {
     return {
       ok: false,
       missing,

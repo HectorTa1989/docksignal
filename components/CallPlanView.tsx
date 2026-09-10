@@ -109,7 +109,7 @@ export function CallPlanView({
                       {c.role.replace("_", " ")}
                     </label>
                     <input className="input" value={e.name} onChange={(ev) => setE({ name: ev.target.value })} />
-                    <input className="input mono" value={e.phone} onChange={(ev) => setE({ phone: ev.target.value })} placeholder="+6591234567" />
+                    <input className="input mono" value={e.phone} onChange={(ev) => setE({ phone: ev.target.value })} placeholder="+12025550123" />
                   </div>
                 );
               })}

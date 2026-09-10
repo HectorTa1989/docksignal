@@ -6,7 +6,7 @@ The PR contributes the reusable `skills/logistics-exception` skill. The DockSign
 
 ## Prerequisites
 
-1. DockSignal pushed to a **public** GitHub repository. You need its URL.
+1. DockSignal is public at https://github.com/HectorTa1989/docksignal.
 2. A GitHub account with a fork of `CALLE-AI/awesome-phone-call-agents`.
 3. Optional but recommended before opening: the Devpost project URL and the public demo video URL, so the PR body has no placeholders.
 
@@ -24,8 +24,6 @@ python3 scripts/check_branch_name.py --branch feat/logistics-exception-skill
 git switch -c feat/logistics-exception-skill
 
 cp -r <path-to-docksignal>/community/awesome-phone-call-agents/skills/logistics-exception skills/
-sed -i 's#DOCKSIGNAL_REPO_URL#https://github.com/<your-user>/<docksignal-repo>#' skills/logistics-exception/SKILL.md
-grep -rn "DOCKSIGNAL_REPO_URL" skills/logistics-exception && echo "STOP: placeholder still present" || echo "placeholder replaced"
 ```
 
 Add the README entry below as the last line of the `### Skills` list (immediately before `### Apps`), then validate and push:
@@ -56,7 +54,7 @@ feat(skills): add logistics-exception dock recovery skill
 ```markdown
 ## Summary
 
-Adds `skills/logistics-exception`, a reusable Agent Skill for delayed-shipment dock exceptions, plus its README awesome-list entry. It packages the call plan, task templates, strict `recipient_result_schema`, the idempotency and webhook reconciliation contract, and the deterministic decision table from DockSignal, a CALL-E: Your Code Is Calling submission (<DockSignal repository URL>).
+Adds `skills/logistics-exception`, a reusable Agent Skill for delayed-shipment dock exceptions, plus its README awesome-list entry. It packages the call plan, task templates, strict `recipient_result_schema`, the idempotency and webhook reconciliation contract, and the deterministic decision table from DockSignal, a CALL-E: Your Code Is Calling submission (https://github.com/HectorTa1989/docksignal).
 
 When a delivery misses its dock window, the skill calls the driver and the receiving dock concurrently (optionally carrier dispatch), one CALL-E call task per contact with a stable per-contact idempotency key. Terminal events are deduplicated by `CALL-E-Event-Id` and re-fetched with `GET /v1/calls/{call_id}` before anything changes. Only facts from reached contacts are combined: empty strings and `unknown` stay unresolved, disagreeing sources are labelled conflicted, and vague ETAs are never converted to clock times. The follow-up call that could change the dock appointment is suggested, never placed, until a human approves it.
 
@@ -87,13 +85,10 @@ When a delivery misses its dock window, the skill calls the driver and the recei
 - Side effects: real outbound calls to operator-authorized numbers only. Nothing is booked, priced, or confirmed automatically; the dock-changing follow-up needs explicit human approval.
 - Credentials: server-side `CALLE_API_KEY` only; none in the skill files.
 - Cancellation: the Calls API has no cancel endpoint, so waves are limited to the contacts confirmed in the plan and never repeated automatically. The workflow is not recurring.
-- No-call path: the only runnable code in the skill, `scripts/validate-result.mjs`, checks a result offline with no network or credentials. Sample numbers use the fictional `+1 500 555 01xx` range.
+- No-call path: the only runnable code in the skill, `scripts/validate-result.mjs`, checks a result offline with no network or credentials. Sample numbers use the fictional `+1 202 555 01xx` range.
 
 ## Links
 
-- DockSignal repository: <add URL>
-- Devpost project: <add URL>
-- Demo video: <add URL>
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
+- DockSignal repository: https://github.com/HectorTa1989/docksignal
+- Devpost project and demo video: links will be added here once published.
 ```

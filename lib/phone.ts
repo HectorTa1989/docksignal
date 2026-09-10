@@ -23,7 +23,7 @@ export function normalizePhone(raw: string): string {
 
 export function validateE164(raw: string, label = "Phone"): string {
   const phone = normalizePhone(raw);
-  if (!E164_PATTERN.test(phone)) throw new Error(`${label} must be in E.164 format, for example +6591234567`);
+  if (!E164_PATTERN.test(phone)) throw new Error(`${label} must be in E.164 format, for example +12025550123`);
   if (isEmergencyNumber(phone)) throw new Error(`${label} looks like an emergency number. DockSignal never calls emergency services.`);
   return phone;
 }

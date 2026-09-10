@@ -36,9 +36,9 @@ export const sampleIncident = (overrides: Partial<NewIncident> = {}): NewInciden
   cargoDescription: "18 pallets chilled produce",
   operatorName: "Ops desk",
   contacts: [
-    { role: "driver", name: "Driver", phoneE164: "+15005550100", region: "US", locale: "en-US", authorizationNote: "test-controlled", includeInFactFinding: true },
-    { role: "receiving_dock", name: "Dock 7", phoneE164: "+15005550101", region: "US", locale: "en-US", authorizationNote: "test-controlled", includeInFactFinding: true },
-    { role: "dispatcher", name: "Dispatch", phoneE164: "+15005550102", region: "US", locale: "en-US", authorizationNote: "test-controlled", includeInFactFinding: false },
+    { role: "driver", name: "Driver", phoneE164: "+12025550100", region: "US", locale: "en-US", authorizationNote: "test-controlled", includeInFactFinding: true },
+    { role: "receiving_dock", name: "Dock 7", phoneE164: "+12025550101", region: "US", locale: "en-US", authorizationNote: "test-controlled", includeInFactFinding: true },
+    { role: "dispatcher", name: "Dispatch", phoneE164: "+12025550102", region: "US", locale: "en-US", authorizationNote: "test-controlled", includeInFactFinding: false },
   ],
   ...overrides,
 });
@@ -84,7 +84,7 @@ export function providerCall(opts: {
     recipients: [
       {
         id: `rcp_${callCounter}`,
-        phones: [opts.phone ?? "+15005550100"],
+        phones: [opts.phone ?? "+12025550100"],
         locale: "en-US",
         region: "US",
         status: status === "completed" ? "completed" : status === "failed" ? "failed" : "in_progress",
@@ -93,7 +93,7 @@ export function providerCall(opts: {
         attempts: [
           {
             id: `att_${callCounter}`,
-            phone: opts.phone ?? "+15005550100",
+            phone: opts.phone ?? "+12025550100",
             status: status === "completed" ? "completed" : status === "failed" ? "failed" : "in_progress",
             started_at: "2026-09-08T06:30:00Z",
             completed_at: terminal ? "2026-09-08T06:33:00Z" : null,

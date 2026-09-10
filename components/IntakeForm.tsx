@@ -133,19 +133,19 @@ export function IntakeForm({ defaults }: { defaults: IntakeDefaults }) {
         <div className="rounded-lg border border-line bg-panel-2 p-3">
           <div className="mb-2 text-xs font-semibold">Driver · required</div>
           <input className="input mb-2" value={form.driverName} onChange={set("driverName")} placeholder="Name" required />
-          <input className="input mono" value={form.driverPhone} onChange={set("driverPhone")} placeholder="+6591234567" required />
+          <input className="input mono" value={form.driverPhone} onChange={set("driverPhone")} placeholder="+12025550123" required />
         </div>
         <div className="rounded-lg border border-line bg-panel-2 p-3">
           <div className="mb-2 text-xs font-semibold">Receiving dock · required</div>
           <input className="input mb-2" value={form.dockName} onChange={set("dockName")} placeholder="Name" required />
-          <input className="input mono" value={form.dockPhone} onChange={set("dockPhone")} placeholder="+6591234567" required />
+          <input className="input mono" value={form.dockPhone} onChange={set("dockPhone")} placeholder="+12025550123" required />
         </div>
         <div className="rounded-lg border border-line bg-panel-2 p-3">
           <label className="mb-2 flex items-center gap-2 text-xs font-semibold">
             <input type="checkbox" checked={form.includeDispatcher} onChange={set("includeDispatcher")} /> Carrier dispatcher · optional third call
           </label>
           <input className="input mb-2" value={form.dispatcherName} onChange={set("dispatcherName")} placeholder="Name" />
-          <input className="input mono" value={form.dispatcherPhone} onChange={set("dispatcherPhone")} placeholder="+6591234567" />
+          <input className="input mono" value={form.dispatcherPhone} onChange={set("dispatcherPhone")} placeholder="+12025550123" />
         </div>
       </div>
       <Field label="Why these numbers may be called (recorded in the audit log)">

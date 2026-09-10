@@ -25,7 +25,7 @@ describe("fact-finding dispatch", () => {
     expect(calle.created).toHaveLength(2);
     const driver = calle.created.find((c) => c.req.metadata.contact_role === "driver")!;
     expect(driver.key).toBe("docksignal:DS-1042:DS-1042:driver:fact_finding:v1");
-    expect(driver.req.recipients).toEqual([{ phones: ["+15005550100"], locale: "en-US", region: "US" }]);
+    expect(driver.req.recipients).toEqual([{ phones: ["+12025550100"], locale: "en-US", region: "US" }]);
     expect(driver.req.webhook_url).toBe(WEBHOOK);
     expect(driver.req.recipient_result_schema).toMatchObject({ additionalProperties: false });
     expect(driver.req.metadata).toMatchObject({ incident_id: "DS-1042", kind: "fact_finding", app: "docksignal" });

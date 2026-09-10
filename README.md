@@ -49,7 +49,7 @@ Open `/api/health` to see whether the CALL-E key was **accepted** (verified with
 | `PUBLIC_BASE_URL` | yes | Public HTTPS origin of this deployment. Webhook URL is `${PUBLIC_BASE_URL}/api/webhooks/calle`. |
 | `DATABASE_POOL_MAX` | no | Connection pool size, default 5. Set to 1 for the PGlite dev server. |
 | `CRON_SECRET` | production | Bearer secret for `/api/jobs/reconcile`. Vercel Cron sends it automatically. |
-| `CALLE_BASE_URL` | no | Override the API base (default `https://api.heycall-e.com`). |
+| `CALLE_BASE_URL` | no | Override the API base (default `https://api.heycall-e.com`). Only an `https://*.heycall-e.com` origin is accepted; anything else blocks calling so the key can never be sent to another host. |
 | `DOCKSIGNAL_ORG_NAME` | no | Organisation the AI assistant identifies itself as calling for. |
 | `DEMO_DRIVER_PHONE`, `DEMO_DOCK_PHONE`, `DEMO_DISPATCHER_PHONE` | no | Pre-fill the intake form with numbers you own or are authorized to call, so no number is typed on camera or committed to git. |
 | `DEMO_TIMEZONE` | no | Default incident timezone (IANA), default `Asia/Singapore`. |
