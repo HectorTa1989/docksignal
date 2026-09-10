@@ -1,0 +1,27 @@
+{
+  "name": "docksignal-demo",
+  "private": true,
+  "type": "module",
+  "description": "Walkthrough video for DockSignal: real app UI driven by Playwright, simulated CALL-E responses, synthetic voices, rendered with Remotion.",
+  "scripts": {
+    "voices": "tsx scripts/voices.ts",
+    "capture": "tsx scripts/capture.ts",
+    "studio": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts DockSignalDemo docksignal-demo.mp4",
+    "thumbnail": "remotion still src/index.ts DockSignalDemo thumbnail.png --frame=3150"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.523",
+    "@remotion/media-utils": "4.0.523",
+    "kokoro-js": "1.2.1",
+    "playwright-core": "1.63.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "remotion": "4.0.523"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.18",
+    "tsx": "4.23.13",
+    "typescript": "5.9.3"
+  }
+}
