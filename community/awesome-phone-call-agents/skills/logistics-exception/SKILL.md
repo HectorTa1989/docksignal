@@ -8,7 +8,7 @@ license: MIT
 
 Use this skill when an operations desk has a shipment that missed its promised dock window and the missing facts (truck location, real reason, revised ETA, whether the dock will still receive) are only available by phone from people the desk is authorized to call.
 
-The skill is the reusable core of [DockSignal](https://github.com/quytn/docksignal) (replace with the public repository URL): a call plan per contact role, a strict `recipient_result_schema`, an idempotency and webhook contract, and a deterministic rules table that turns provider-backed results into one recovery decision.
+The skill is the reusable core of [DockSignal](DOCKSIGNAL_REPO_URL): a call plan per contact role, a strict `recipient_result_schema`, an idempotency and webhook contract, and a deterministic rules table that turns provider-backed results into one recovery decision.
 
 ## When To Use
 
