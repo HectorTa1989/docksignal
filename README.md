@@ -20,7 +20,7 @@ Built for **CALL-E: Your Code Is Calling**, targeting the *Most Practical Use Ca
 - [Testing](#testing) (details in [TESTING.md](TESTING.md))
 - [Deployment](#deployment)
 - [What is real, what is manual, what we learned](#what-is-real-what-is-manual-what-we-learned)
-- Demo: [DEMO_SCRIPT.md](DEMO_SCRIPT.md) · Devpost: [DEVPOST.md](DEVPOST.md) · CALL-E feedback: [CALLE_FEEDBACK.md](CALLE_FEEDBACK.md) · Community contribution: [community/](community/)
+- Demo: [DEMO_SCRIPT.md](DEMO_SCRIPT.md) · Devpost: [DEVPOST.md](DEVPOST.md) · CALL-E feedback: [CALLE_FEEDBACK.md](CALLE_FEEDBACK.md) · Community contribution: [community/](community/), submitted as [CALLE-AI/awesome-phone-call-agents#436](https://github.com/CALLE-AI/awesome-phone-call-agents/pull/436)
 
 ## Quick start
 

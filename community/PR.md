@@ -1,5 +1,7 @@
 # Pull request to CALLE-AI/awesome-phone-call-agents
 
+**Status:** opened as [CALLE-AI/awesome-phone-call-agents#436](https://github.com/CALLE-AI/awesome-phone-call-agents/pull/436) from `HectorTa1989:feat/logistics-exception-skill`. Paste that URL into the Devpost field *Project submission pull request URL*. The steps below are kept for reference.
+
 The Devpost form asks for a **Project submission pull request URL**: an opened PR into the upstream `CALLE-AI/awesome-phone-call-agents` repository (a PR in your own fork does not count). It does not need to be merged before the deadline, 2026-09-14 15:45 UTC.
 
 The PR contributes the reusable `skills/logistics-exception` skill. The DockSignal app itself stays in its own public repository and is linked from the skill. It is not copied under `apps/`, because the upstream checklist expects runnable apps to default to a no-call path, and DockSignal deliberately has no mock or no-call mode.
